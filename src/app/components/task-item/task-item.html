@@ -1,0 +1,9 @@
+<li class="task-item" [class.done]="task().completed">
+  <input
+    type="checkbox"
+    [checked]="task().completed"
+    (change)="toggleComplete.emit(task().id)"
+  />
+  <span class="title">{{ task().title }}</span>
+  <span class="priority">{{ task().priority }}</span>
+</li>

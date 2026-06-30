@@ -1,0 +1,19 @@
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+}
+
+.task-item.done .title {
+  text-decoration: line-through;
+  color: #999;
+}
+
+.priority {
+  font-size: 0.8rem;
+  color: #666;
+}

@@ -1,0 +1,23 @@
+<section class="task-list">
+  <h2>My Tasks</h2>
+
+  <div class="add-task">
+    <input
+      type="text"
+      placeholder="New task..."
+      [(ngModel)]="newTitle"
+      (keyup.enter)="addTask()"
+    />
+    <button type="button" (click)="addTask()">Add</button>
+  </div>
+
+  @if (tasks().length > 0) {
+    <ul>
+      @for (task of tasks(); track task.id) {
+        <app-task-item [task]="task" (toggleComplete)="onToggle($event)" />
+      }
+    </ul>
+  } @else {
+    <p class="empty">No tasks yet. 🎉</p>
+  }
+</section>
