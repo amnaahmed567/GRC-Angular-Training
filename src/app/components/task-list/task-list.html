@@ -1,3 +1,4 @@
+<!-- Task list template: add-task input plus the list of task-item children. -->
 <section class="task-list">
   <h2>My Tasks</h2>
 
@@ -5,8 +6,8 @@
     <input
       type="text"
       placeholder="New task..."
-      [(ngModel)]="newTitle"
-      (keyup.enter)="addTask()"
+      [(ngModel)]="newTitle" //Two-way binding (input ⇄ data)
+      (keyup.enter)="addTask()" //Event binding elements listen for events and trigger actions in the component. In this case, when the user presses the Enter key, the addTask() method is called.
     />
     <button type="button" (click)="addTask()">Add</button>
   </div>
@@ -15,7 +16,7 @@
     <ul>
       @for (task of tasks(); track task.id) {
         <app-task-item [task]="task" (toggleComplete)="onToggle($event)" />
-      }
+      } ////Property binding sends data from the component to the HTML.
     </ul>
   } @else {
     <p class="empty">No tasks yet. 🎉</p>

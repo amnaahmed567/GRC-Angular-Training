@@ -1,3 +1,4 @@
+// Child component — renders one task and emits a toggle event to its parent.
 import { Component, input, output } from '@angular/core';
 import { Task } from '../../models/task.model';
 

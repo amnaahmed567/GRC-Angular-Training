@@ -1,3 +1,4 @@
+// Unit tests for the root App component.
 import { TestBed } from '@angular/core/testing';
 import { App } from './app';
 

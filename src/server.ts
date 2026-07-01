@@ -1,3 +1,4 @@
+// Express server that renders the Angular app (SSR) and serves static assets.
 import {
   AngularNodeAppEngine,
   createNodeRequestHandler,

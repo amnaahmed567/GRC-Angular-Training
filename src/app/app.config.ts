@@ -1,3 +1,4 @@
+// Browser app config — providers wired into the app at bootstrap (router, hydration).
 import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { provideRouter } from '@angular/router';
 

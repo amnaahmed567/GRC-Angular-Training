@@ -1,3 +1,4 @@
+// Parent component — holds the task list state and handles add/toggle actions.
 import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Task } from '../../models/task.model';
