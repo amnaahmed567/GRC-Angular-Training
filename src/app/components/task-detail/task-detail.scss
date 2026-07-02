@@ -1,0 +1,53 @@
+.task-detail {
+  max-width: 480px;
+
+  .back {
+    display: inline-block;
+    margin-bottom: 1rem;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-weight: 600;
+
+    &.checkbox {
+      flex-direction: row;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 400;
+    }
+  }
+
+  input[type='text'],
+  select {
+    padding: 0.4rem 0.5rem;
+
+    &.invalid {
+      border: 1px solid #c0392b;
+      outline-color: #c0392b;
+    }
+  }
+
+  .field-error {
+    margin: 0;
+    color: #c0392b;
+    font-size: 0.85rem;
+  }
+
+  .error {
+    color: #c0392b;
+  }
+
+  button[type='submit'] {
+    align-self: flex-start;
+    padding: 0.5rem 1rem;
+  }
+}

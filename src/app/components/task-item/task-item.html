@@ -7,6 +7,8 @@
   />
   <span class="title">{{ task.title }}</span> <!-- interpolating show data as text -->
   <span class="priority">{{ task.priority }}</span>
+  <!-- [routerLink] navigates to the detail/edit page (not href) -->
+  <a class="edit" [routerLink]="['/tasks', task.id]">Edit</a>
   <button type="button" class="delete" (click)="deleteTask.emit(task.id)">
     Delete
   </button>

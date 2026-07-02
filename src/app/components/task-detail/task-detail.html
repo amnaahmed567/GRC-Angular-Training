@@ -1,0 +1,60 @@
+<!-- Detail / edit form for one task. -->
+<section class="task-detail">
+  <a class="back" [routerLink]="['/tasks']">← Back to tasks</a>
+  <h2>{{ isNew() ? 'New Task' : 'Edit Task' }}</h2>
+
+  @if (loading()) {
+    <p class="loading">Loading…</p>
+  } @else {
+    @if (error()) {
+      <p class="error" role="alert">{{ error() }}</p>
+    }
+
+    <!-- [formGroup] binds the class's form; formControlName binds each field. -->
+    <form [formGroup]="form" (ngSubmit)="save()">
+      <label>
+        Title
+        <input
+          type="text"
+          formControlName="title"
+          [class.invalid]="form.controls.title.touched && form.controls.title.invalid"
+        />
+      </label>
+      <!-- Show errors only after the field is touched. -->
+      @if (form.controls.title.touched && form.controls.title.invalid) {
+        <p class="field-error">
+          @if (form.controls.title.hasError('required')) {
+            Title is required.
+          } @else if (form.controls.title.hasError('maxlength')) {
+            Title must be 100 characters or fewer.
+          }
+        </p>
+      }
+
+      <label>
+        Priority
+        <select
+          formControlName="priority"
+          [class.invalid]="form.controls.priority.touched && form.controls.priority.invalid"
+        >
+          <option value="Low">Low</option>
+          <option value="Medium">Medium</option>
+          <option value="High">High</option>
+        </select>
+      </label>
+      @if (form.controls.priority.touched && form.controls.priority.hasError('required')) {
+        <p class="field-error">Priority is required.</p>
+      }
+
+      <label class="checkbox">
+        <input type="checkbox" formControlName="completed" />
+        Completed
+      </label>
+
+      <!-- Disable submit while the form is invalid or a save is in flight. -->
+      <button type="submit" [disabled]="form.invalid || saving()">
+        {{ saving() ? 'Saving…' : 'Save' }}
+      </button>
+    </form>
+  }
+</section>

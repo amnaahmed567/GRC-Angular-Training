@@ -1,6 +1,7 @@
 // Parent component — loads tasks from the API and handles add/toggle/delete actions.
 import { Component, OnInit, PLATFORM_ID, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
 import { Task } from '../../models/task.model';
 import { TaskService } from '../../services/task.service';
@@ -8,7 +9,7 @@ import { TaskItem } from '../task-item/task-item';
 
 @Component({
   selector: 'app-task-list',
-  imports: [TaskItem, FormsModule],
+  imports: [TaskItem, FormsModule, RouterLink],
   templateUrl: './task-list.html',
   styleUrl: './task-list.scss',
 })
@@ -24,6 +25,9 @@ export class TaskList implements OnInit {
 
   // Bound to the text box via [(ngModel)] — stays in sync as you type.
   newTitle = '';
+
+  // Bound to the priority dropdown in the add-task form.
+  newPriority: Task['priority'] = 'Medium';
 
   ngOnInit(): void {
     // Only fetch in the browser — skip during server-side rendering.
@@ -54,9 +58,10 @@ export class TaskList implements OnInit {
     const title = this.newTitle.trim();
     if (!title) return; // ignore empty input
 
-    this.taskService.addTask({ title, completed: false, priority: 'Medium' }).subscribe({
+    this.taskService.addTask({ title, completed: false, priority: this.newPriority }).subscribe({
       next: () => {
         this.newTitle = '';
+        this.newPriority = 'Medium';
         this.loadTasks();
       },
       error: (err) => {

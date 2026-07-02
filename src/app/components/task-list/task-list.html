@@ -2,6 +2,9 @@
 <section class="task-list">
   <h2>My Tasks</h2>
 
+  <!-- Full reactive create form on its own page -->
+  <a class="new-task" [routerLink]="['/tasks/new']">+ New Task (full form)</a>
+
   <div class="add-task">
     <!-- [(ngModel)] = two-way binding (input ⇄ data) -->
     <!-- (keyup.enter) = event binding: Enter key calls addTask() -->
@@ -11,6 +14,12 @@
       [(ngModel)]="newTitle"
       (keyup.enter)="addTask()"
     />
+    <!-- Pick the priority for the new task -->
+    <select [(ngModel)]="newPriority" aria-label="Priority">
+      <option value="Low">Low</option>
+      <option value="Medium">Medium</option>
+      <option value="High">High</option>
+    </select>
     <button type="button" (click)="addTask()">Add</button>
   </div>
 

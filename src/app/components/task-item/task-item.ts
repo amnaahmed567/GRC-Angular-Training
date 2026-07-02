@@ -1,10 +1,11 @@
 // Child component — renders one task and emits a toggle event to its parent.
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { Task } from '../../models/task.model';
 
 @Component({
   selector: 'app-task-item',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './task-item.html',
   styleUrl: './task-item.scss',
 })

@@ -1,11 +1,10 @@
 // Root component — hosts the task list and shows a Day 1 computed greeting.
 import { Component, signal, computed } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { TaskList } from './components/task-list/task-list';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, TaskList],
+  imports: [RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
