@@ -1,47 +1,70 @@
-// Parent component — holds the task list state and handles add/toggle actions.
-import { Component, signal } from '@angular/core';
+// Parent component — loads tasks from the API and handles add/toggle/delete actions.
+import { Component, OnInit, PLATFORM_ID, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { AsyncPipe, isPlatformBrowser } from '@angular/common';
+import { Observable, catchError, of } from 'rxjs';
 import { Task } from '../../models/task.model';
+import { TaskService } from '../../services/task.service';
 import { TaskItem } from '../task-item/task-item';
 
 @Component({
   selector: 'app-task-list',
-  imports: [TaskItem, FormsModule],
+  imports: [TaskItem, FormsModule, AsyncPipe],
   templateUrl: './task-list.html',
   styleUrl: './task-list.scss',
 })
-export class TaskList {
-  // Local state held in a signal (sample data for now)
-  readonly tasks = signal<Task[]>([
-    { id: 1, title: 'Learn Angular components', completed: true, priority: 'High' },
-    { id: 2, title: 'Build the task list', completed: false, priority: 'Medium' },
-    { id: 3, title: 'Style the task item', completed: false, priority: 'Low' },
-  ]);
+export class TaskList implements OnInit {
+  private readonly taskService = inject(TaskService);
+  private readonly platformId = inject(PLATFORM_ID);
+
+  // The $ suffix means 'this is an Observable'. The template reads it with the async pipe.
+  tasks$!: Observable<Task[]>;
+
+  // Simple error message shown if a request fails.
+  error: string | null = null;
 
   // Bound to the text box via [(ngModel)] — stays in sync as you type
   newTitle = '';
 
-  // Adds a new task from whatever is in the text box
+  ngOnInit(): void {
+    // Only fetch in the browser — skip during server-side rendering.
+    if (isPlatformBrowser(this.platformId)) {
+      this.loadTasks();
+    }
+  }
+
+  // GET the list. catchError shows a message instead of breaking the stream.
+  loadTasks(): void {
+    this.error = null;
+    this.tasks$ = this.taskService.getTasks().pipe(
+      catchError((err) => {
+        this.error = 'Could not load tasks. Please try again.';
+        console.error('Failed to load tasks', err);
+        return of([] as Task[]);
+      })
+    );
+  }
+
+  // POST a new task, then reload the list.
   addTask(): void {
     const title = this.newTitle.trim();
     if (!title) return; // ignore empty input
 
-    const nextId = Math.max(0, ...this.tasks().map((t) => t.id)) + 1;
-
-    this.tasks.update((tasks) => [
-      ...tasks,
-      { id: nextId, title, completed: false, priority: 'Medium' },
-    ]);
-
-    this.newTitle = ''; // clear the box
+    this.taskService
+      .addTask({ title, completed: false, priority: 'Medium' })
+      .subscribe(() => {
+        this.newTitle = '';
+        this.loadTasks();
+      });
   }
 
-  // Runs when a child emits toggleComplete. Flips that task's "completed".
+  // PATCH the toggle endpoint, then reload the list.
   onToggle(id: number): void {
-    this.tasks.update((tasks) =>
-      tasks.map((task) =>
-        task.id === id ? { ...task, completed: !task.completed } : task
-      )
-    );
+    this.taskService.toggleTask(id).subscribe(() => this.loadTasks());
+  }
+
+  // DELETE the task, then reload the list.
+  onDelete(id: number): void {
+    this.taskService.deleteTask(id).subscribe(() => this.loadTasks());
   }
 }

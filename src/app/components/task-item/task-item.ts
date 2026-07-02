@@ -1,5 +1,5 @@
 // Child component — renders one task and emits a toggle event to its parent.
-import { Component, input, output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Task } from '../../models/task.model';
 
 @Component({
@@ -9,9 +9,12 @@ import { Task } from '../../models/task.model';
   styleUrl: './task-item.scss',
 })
 export class TaskItem {
-  // IN: the parent passes one task into this component (modern @Input)
-  readonly task = input.required<Task>();
+  // IN: the parent passes one task into this component (@Input)
+  @Input({ required: true }) task!: Task;
 
-  // OUT: this component tells the parent "toggle this task" (modern @Output)
-  readonly toggleComplete = output<number>();
+  // OUT: this component tells the parent "toggle this task" (@Output)
+  @Output() toggleComplete = new EventEmitter<number>();
+
+  // OUT: this component tells the parent "delete this task" (@Output)
+  @Output() deleteTask = new EventEmitter<number>();
 }

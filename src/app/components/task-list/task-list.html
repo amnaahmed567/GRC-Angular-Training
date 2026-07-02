@@ -3,22 +3,41 @@
   <h2>My Tasks</h2>
 
   <div class="add-task">
+    <!-- [(ngModel)] = two-way binding (input ⇄ data) -->
+    <!-- (keyup.enter) = event binding: Enter key calls addTask() -->
     <input
       type="text"
       placeholder="New task..."
-      [(ngModel)]="newTitle" //Two-way binding (input ⇄ data)
-      (keyup.enter)="addTask()" //Event binding elements listen for events and trigger actions in the component. In this case, when the user presses the Enter key, the addTask() method is called.
+      [(ngModel)]="newTitle"
+      (keyup.enter)="addTask()"
     />
     <button type="button" (click)="addTask()">Add</button>
   </div>
 
-  @if (tasks().length > 0) {
-    <ul>
-      @for (task of tasks(); track task.id) {
-        <app-task-item [task]="task" (toggleComplete)="onToggle($event)" />
-      } ////Property binding sends data from the component to the HTML.
-    </ul>
+  @if (error) {
+    <p class="error" role="alert">
+      {{ error }}
+      <button type="button" (click)="loadTasks()">Retry</button>
+    </p>
+  }
+
+  <!-- async pipe reads the stream; it's null until the GET responds = loading -->
+  @if (tasks$ | async; as tasks) {
+    @if (tasks.length > 0) {
+      <ul>
+        <!-- [task] = property binding: data from component to child -->
+        @for (task of tasks; track task.id) {
+          <app-task-item
+            [task]="task"
+            (toggleComplete)="onToggle($event)"
+            (deleteTask)="onDelete($event)"
+          />
+        }
+      </ul>
+    } @else {
+      <p class="empty">No tasks yet. 🎉</p>
+    }
   } @else {
-    <p class="empty">No tasks yet. 🎉</p>
+    <p class="loading">Loading tasks…</p>
   }
 </section>

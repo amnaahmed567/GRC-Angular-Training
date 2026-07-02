@@ -1,10 +1,13 @@
 <!-- Single task row: checkbox, title, and priority label. -->
-<li class="task-item" [class.done]="task().completed">
+<li class="task-item" [class.done]="task.completed">
   <input
     type="checkbox"
-    [checked]="task().completed"
-    (change)="toggleComplete.emit(task().id)"
+    [checked]="task.completed"
+    (change)="toggleComplete.emit(task.id)"
   />
-  <span class="title">{{ task().title }}</span> <!-- interpolating show data as text -->
-  <span class="priority">{{ task().priority }}</span>
+  <span class="title">{{ task.title }}</span> <!-- interpolating show data as text -->
+  <span class="priority">{{ task.priority }}</span>
+  <button type="button" class="delete" (click)="deleteTask.emit(task.id)">
+    Delete
+  </button>
 </li>
