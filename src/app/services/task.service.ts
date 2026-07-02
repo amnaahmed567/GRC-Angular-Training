@@ -11,8 +11,8 @@ import { Task } from '../models/task.model';
 export class TaskService {
   private readonly http = inject(HttpClient); //
 
-  // Base URL of the backend Tasks API
-  private readonly apiUrl = 'https://localhost:5001/api/tasks';
+  // Base URL of the backend Tasks API (matches the http profile in launchSettings.json)
+  private readonly apiUrl = 'http://localhost:5170/api/tasks';
 
   // GET  /api/tasks — fetch all tasks
   getTasks(): Observable<Task[]> {

@@ -14,30 +14,28 @@
     <button type="button" (click)="addTask()">Add</button>
   </div>
 
-  @if (error) {
+  @if (error()) {
     <p class="error" role="alert">
-      {{ error }}
+      {{ error() }}
       <button type="button" (click)="loadTasks()">Retry</button>
     </p>
   }
 
-  <!-- async pipe reads the stream; it's null until the GET responds = loading -->
-  @if (tasks$ | async; as tasks) {
-    @if (tasks.length > 0) {
-      <ul>
-        <!-- [task] = property binding: data from component to child -->
-        @for (task of tasks; track task.id) {
-          <app-task-item
-            [task]="task"
-            (toggleComplete)="onToggle($event)"
-            (deleteTask)="onDelete($event)"
-          />
-        }
-      </ul>
-    } @else {
-      <p class="empty">No tasks yet. 🎉</p>
-    }
-  } @else {
+  <!-- Signals drive the view: loading first, then the list or the empty state. -->
+  @if (loading()) {
     <p class="loading">Loading tasks…</p>
+  } @else if (tasks().length > 0) {
+    <ul>
+      <!-- [task] = property binding: data from component to child -->
+      @for (task of tasks(); track task.id) {
+        <app-task-item
+          [task]="task"
+          (toggleComplete)="onToggle($event)"
+          (deleteTask)="onDelete($event)"
+        />
+      }
+    </ul>
+  } @else {
+    <p class="empty">No tasks yet. 🎉</p>
   }
 </section>
