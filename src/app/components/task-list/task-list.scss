@@ -1,1 +1,22 @@
 /* Styles for the TaskList component. */
+.add-task {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+
+  input[type='text'].invalid {
+    border: 1px solid #c0392b;
+    outline-color: #c0392b;
+  }
+}
+
+.field-error {
+  margin: 0.25rem 0 0;
+  color: #c0392b;
+  font-size: 0.85rem;
+}
+
+.new-task {
+  display: inline-block;
+  margin-bottom: 0.75rem;
+}

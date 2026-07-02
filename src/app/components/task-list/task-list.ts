@@ -1,6 +1,6 @@
 // Parent component — loads tasks from the API and handles add/toggle/delete actions.
 import { Component, OnInit, PLATFORM_ID, inject, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
 import { Task } from '../../models/task.model';
@@ -54,7 +54,7 @@ export class TaskList implements OnInit {
   }
 
   // POST a new task, then reload the list.
-  addTask(): void {
+  addTask(form?: NgForm): void {
     const title = this.newTitle.trim();
     if (!title) return; // ignore empty input
 
@@ -62,6 +62,8 @@ export class TaskList implements OnInit {
       next: () => {
         this.newTitle = '';
         this.newPriority = 'Medium';
+        // Reset validation state so the cleared field doesn't flash an error.
+        form?.resetForm({ priority: 'Medium' });
         this.loadTasks();
       },
       error: (err) => {
