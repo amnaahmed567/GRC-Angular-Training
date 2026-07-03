@@ -37,6 +37,7 @@
           formControlName="priority"
           [class.invalid]="form.controls.priority.touched && form.controls.priority.invalid"
         >
+          <option value="" disabled>Select priority…</option>
           <option value="Low">Low</option>
           <option value="Medium">Medium</option>
           <option value="High">High</option>

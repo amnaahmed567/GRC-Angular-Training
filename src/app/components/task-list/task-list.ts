@@ -1,21 +1,22 @@
 // Parent component — loads tasks from the API and handles add/toggle/delete actions.
 import { Component, OnInit, PLATFORM_ID, inject, signal } from '@angular/core';
-import { FormsModule, NgForm } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
-import { Task } from '../../models/task.model';
+import { Task, Priority } from '../../models/task.model';
 import { TaskService } from '../../services/task.service';
 import { TaskItem } from '../task-item/task-item';
 
 @Component({
   selector: 'app-task-list',
-  imports: [TaskItem, FormsModule, RouterLink],
+  imports: [TaskItem, ReactiveFormsModule, RouterLink],
   templateUrl: './task-list.html',
   styleUrl: './task-list.scss',
 })
 export class TaskList implements OnInit {
   private readonly taskService = inject(TaskService);
   private readonly platformId = inject(PLATFORM_ID);
+  private readonly fb = inject(FormBuilder);
 
   // Signals drive the view. Setting a signal schedules change detection,
   // so the list updates on the first click even in zoneless mode.
@@ -23,11 +24,12 @@ export class TaskList implements OnInit {
   readonly error = signal<string | null>(null);
   readonly loading = signal(false);
 
-  // Bound to the text box via [(ngModel)] — stays in sync as you type.
-  newTitle = '';
-
-  // Bound to the priority dropdown in the add-task form.
-  newPriority: Task['priority'] = 'Medium';
+  // Reactive add form — same validators as the detail form, so the
+  // max-length error actually surfaces (input isn't natively capped).
+  readonly addForm = this.fb.group({
+    title: ['', [Validators.required, Validators.maxLength(100)]],
+    priority: ['', Validators.required],
+  });
 
   ngOnInit(): void {
     // Only fetch in the browser — skip during server-side rendering.
@@ -54,16 +56,17 @@ export class TaskList implements OnInit {
   }
 
   // POST a new task, then reload the list.
-  addTask(form?: NgForm): void {
-    const title = this.newTitle.trim();
-    if (!title) return; // ignore empty input
+  addTask(): void {
+    if (this.addForm.invalid) return; // need a valid title and a chosen priority
 
-    this.taskService.addTask({ title, completed: false, priority: this.newPriority }).subscribe({
+    const value = this.addForm.getRawValue();
+    const title = value.title!.trim();
+    const priority = value.priority as Priority;
+
+    this.taskService.addTask({ title, completed: false, priority }).subscribe({
       next: () => {
-        this.newTitle = '';
-        this.newPriority = 'Medium';
-        // Reset validation state so the cleared field doesn't flash an error.
-        form?.resetForm({ priority: 'Medium' });
+        // Reset values and validation state so nothing flashes an error.
+        this.addForm.reset({ title: '', priority: '' });
         this.loadTasks();
       },
       error: (err) => {
