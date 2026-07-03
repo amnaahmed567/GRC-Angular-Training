@@ -3,18 +3,42 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5rem 0.75rem;
-  border: 1px solid #ddd;
-  border-radius: 6px;
+  gap: 0.75rem;
+  padding: 0.6rem 0.85rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
   margin-bottom: 0.5rem;
+  background: #fff;
+}
+
+.task-item:hover {
+  border-color: #c7d2fe;
+}
+
+.title {
+  flex: 1 1 auto;
 }
 
 .task-item.done .title {
   text-decoration: line-through;
-  color: #999;
+  color: #94a3b8;
 }
 
 .priority {
   font-size: 0.8rem;
-  color: #666;
+  color: #64748b;
+}
+
+.edit {
+  font-size: 0.85rem;
+}
+
+.delete {
+  background: transparent;
+  color: #dc2626;
+  padding: 0.3rem 0.55rem;
+}
+
+.delete:hover:not(:disabled) {
+  background: #fef2f2;
 }

@@ -1,22 +1,49 @@
 /* Styles for the TaskList component. */
-.add-task {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-
-  input[type='text'].invalid {
-    border: 1px solid #c0392b;
-    outline-color: #c0392b;
-  }
+.task-list {
+  max-width: 560px;
 }
 
-.field-error {
-  margin: 0.25rem 0 0;
-  color: #c0392b;
-  font-size: 0.85rem;
+.summary {
+  margin: 0.25rem 0 1rem;
+  color: #64748b;
+  font-size: 0.9rem;
 }
 
 .new-task {
   display: inline-block;
   margin-bottom: 0.75rem;
+}
+
+.add-task {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+
+  input[type='text'] {
+    flex: 1 1 180px;
+  }
+}
+
+.field-error {
+  margin: 0.35rem 0 0;
+  color: #dc2626;
+  font-size: 0.85rem;
+}
+
+.error {
+  margin-top: 1rem;
+  color: #dc2626;
+}
+
+.loading,
+.empty {
+  margin-top: 1rem;
+  color: #64748b;
+}
+
+ul {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
 }

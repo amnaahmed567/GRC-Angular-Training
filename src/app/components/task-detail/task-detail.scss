@@ -26,28 +26,17 @@
     }
   }
 
-  input[type='text'],
-  select {
-    padding: 0.4rem 0.5rem;
-
-    &.invalid {
-      border: 1px solid #c0392b;
-      outline-color: #c0392b;
-    }
-  }
-
   .field-error {
     margin: 0;
-    color: #c0392b;
+    color: #dc2626;
     font-size: 0.85rem;
   }
 
   .error {
-    color: #c0392b;
+    color: #dc2626;
   }
 
   button[type='submit'] {
     align-self: flex-start;
-    padding: 0.5rem 1rem;
   }
 }

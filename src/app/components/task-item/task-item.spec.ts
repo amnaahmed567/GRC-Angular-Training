@@ -17,15 +17,13 @@ describe('TaskItem', () => {
       providers: [provideRouter([])], // the template uses routerLink
     }).compileComponents();
 
-    fixture = TestBed.createComponent(TaskItem);
+    
+// TestBed This creates a fake Angular application just for testing.
+    fixture = TestBed.createComponent(TaskItem);//A fixture is a wrapper around your component during testing.
     component = fixture.componentInstance;
     // required input — set it before change detection runs
     fixture.componentRef.setInput('task', task);
     await fixture.whenStable();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
   });
 
   it('emits deleteTask with the task id when Delete is clicked', () => {
