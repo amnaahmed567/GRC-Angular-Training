@@ -2,6 +2,11 @@
 <section class="task-list">
   <h2>My Tasks</h2>
 
+  <!-- computed() signals — read with (), update automatically as tasks change -->
+  @if (totalCount() > 0) {
+    <p class="summary">{{ completedCount() }} of {{ totalCount() }} done</p>
+  }
+
   <!-- Full reactive create form on its own page -->
   <a class="new-task" [routerLink]="['/tasks/new']">+ New Task (full form)</a>
 

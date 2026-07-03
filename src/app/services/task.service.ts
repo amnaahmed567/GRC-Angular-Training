@@ -4,9 +4,9 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Task } from '../models/task.model';
 
-@Injectable({ providedIn: 'root' //Create ONE shared instance of this service for the whole application.
-
- }) //This class is a service and can be injected into other classes.
+@Injectable({
+  providedIn: 'root', //Create ONE shared instance of this service for the whole application.
+}) //This class is a service and can be injected into other classes.
 //This is a service that should participate in Dependency Injection.
 export class TaskService {
   private readonly http = inject(HttpClient); //

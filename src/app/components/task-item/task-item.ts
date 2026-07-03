@@ -2,10 +2,11 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Task } from '../../models/task.model';
+import { PriorityColorPipe } from '../../pipes/priority-color.pipe';
 
 @Component({
   selector: 'app-task-item',
-  imports: [RouterLink],
+  imports: [RouterLink, PriorityColorPipe],
   templateUrl: './task-item.html',
   styleUrl: './task-item.scss',
 })

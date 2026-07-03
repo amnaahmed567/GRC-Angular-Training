@@ -29,7 +29,8 @@ export class TaskDetail implements OnInit {
 
   // The form is described here in the class (reactive forms).
   // priority starts empty so the user must actively pick one (required).
-  form = this.fb.group({ //form group is a collection of form controls, which can be nested.
+  form = this.fb.group({
+    //form group is a collection of form controls, which can be nested.
     title: ['', [Validators.required, Validators.maxLength(100)]],
     priority: ['', Validators.required],
     completed: [false],

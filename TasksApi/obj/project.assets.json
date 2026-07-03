@@ -53,9 +53,7 @@
             "related": ".pdb;.xml"
           }
         },
-        "frameworkReferences": [
-          "Microsoft.AspNetCore.App"
-        ]
+        "frameworkReferences": ["Microsoft.AspNetCore.App"]
       },
       "Swashbuckle.AspNetCore.SwaggerGen/6.6.2": {
         "type": "package",
@@ -85,9 +83,7 @@
             "related": ".pdb;.xml"
           }
         },
-        "frameworkReferences": [
-          "Microsoft.AspNetCore.App"
-        ]
+        "frameworkReferences": ["Microsoft.AspNetCore.App"]
       }
     }
   },
@@ -442,9 +438,7 @@
     }
   },
   "projectFileDependencyGroups": {
-    "net8.0": [
-      "Swashbuckle.AspNetCore >= 6.6.2"
-    ]
+    "net8.0": ["Swashbuckle.AspNetCore >= 6.6.2"]
   },
   "packageFolders": {
     "C:\\Users\\Qadri laptop\\.nuget\\packages\\": {}
@@ -458,12 +452,8 @@
       "packagesPath": "C:\\Users\\Qadri laptop\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\Qadri laptop\\Downloads\\Angular\\task1\\task1\\TasksApi\\obj\\",
       "projectStyle": "PackageReference",
-      "configFilePaths": [
-        "C:\\Users\\Qadri laptop\\AppData\\Roaming\\NuGet\\NuGet.Config"
-      ],
-      "originalTargetFrameworks": [
-        "net8.0"
-      ],
+      "configFilePaths": ["C:\\Users\\Qadri laptop\\AppData\\Roaming\\NuGet\\NuGet.Config"],
+      "originalTargetFrameworks": ["net8.0"],
       "sources": {
         "https://api.nuget.org/v3/index.json": {}
       },
@@ -474,9 +464,7 @@
         }
       },
       "warningProperties": {
-        "warnAsError": [
-          "NU1605"
-        ]
+        "warnAsError": ["NU1605"]
       },
       "restoreAuditProperties": {
         "enableAudit": "true",
@@ -493,15 +481,7 @@
             "version": "[6.6.2, )"
           }
         },
-        "imports": [
-          "net461",
-          "net462",
-          "net47",
-          "net471",
-          "net472",
-          "net48",
-          "net481"
-        ],
+        "imports": ["net461", "net462", "net47", "net471", "net472", "net48", "net481"],
         "assetTargetFallback": true,
         "warn": true,
         "frameworkReferences": {

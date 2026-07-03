@@ -1,5 +1,5 @@
 // Parent component — loads tasks from the API and handles add/toggle/delete actions.
-import { Component, OnInit, PLATFORM_ID, inject, signal } from '@angular/core';
+import { Component, OnInit, PLATFORM_ID, inject, signal, computed } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
@@ -23,6 +23,11 @@ export class TaskList implements OnInit {
   readonly tasks = signal<Task[]>([]);
   readonly error = signal<string | null>(null);
   readonly loading = signal(false);
+
+  // computed() derives state from other signals and updates automatically
+  // whenever tasks() changes — no manual recalculation needed.
+  readonly completedCount = computed(() => this.tasks().filter((t) => t.completed).length);
+  readonly totalCount = computed(() => this.tasks().length);
 
   // Reactive add form — same validators as the detail form, so the
   // max-length error actually surfaces (input isn't natively capped).

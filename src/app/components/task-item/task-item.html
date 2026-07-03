@@ -1,15 +1,11 @@
 <!-- Single task row: checkbox, title, and priority label. -->
 <li class="task-item" [class.done]="task.completed">
-  <input
-    type="checkbox"
-    [checked]="task.completed"
-    (change)="toggleComplete.emit(task.id)"
-  />
-  <span class="title">{{ task.title }}</span> <!-- interpolating show data as text -->
-  <span class="priority">{{ task.priority }}</span>
+  <input type="checkbox" [checked]="task.completed" (change)="toggleComplete.emit(task.id)" />
+  <span class="title">{{ task.title }}</span>
+  <!-- interpolating show data as text -->
+  <!-- custom pipe formats the priority as a colored dot -->
+  <span class="priority">{{ task.priority | priorityColor }} {{ task.priority }}</span>
   <!-- [routerLink] navigates to the detail/edit page (not href) -->
   <a class="edit" [routerLink]="['/tasks', task.id]">Edit</a>
-  <button type="button" class="delete" (click)="deleteTask.emit(task.id)">
-    Delete
-  </button>
+  <button type="button" class="delete" (click)="deleteTask.emit(task.id)">Delete</button>
 </li>
